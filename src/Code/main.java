@@ -7,6 +7,7 @@ import org.lwjgl.system.*;
 import org.lwjgl.opengl.*;
 
 import java.nio.*;
+import java.util.ArrayList;
 import org.lwjgl.BufferUtils;
 
 import static org.lwjgl.glfw.Callbacks.*;
@@ -218,6 +219,12 @@ public class main
                             glfwSetWindowShouldClose(window, true); 
                             break;
                     }   
+                    break;
+                case GLFW_KEY_G:
+                    circle = transformCircleX(circle, 0.2f);
+                    break;
+                case GLFW_KEY_F:
+                    circle = transformCircleX(circle, -0.2f);
                     break;
             }      
         });
@@ -433,7 +440,6 @@ public class main
     {
         CircleShape c = new CircleShape();
         float[] testCircle = c.CreateCircleP(xCenter, yCenter, r, percision, zdepth);
-        
         return testCircle;
     }
     
@@ -443,6 +449,14 @@ public class main
         float[] testCircle = c.CreateCircleNP(xCenter, yCenter, r, zdepth);
 
         return testCircle;
+    }
+    
+    public float[] transformCircleX(float[] array, float x)
+    {
+        CircleShape c = new CircleShape();
+        float[] Narray;
+        Narray = c.TransformArrayX(array, x);
+        return Narray;
     }
     
        

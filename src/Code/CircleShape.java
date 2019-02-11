@@ -11,7 +11,7 @@ public class CircleShape
     private int a;
     private int rn;
 
-    float[] array;
+    private float[] array;
     double ConversionFactor = Math.PI/180;
     
     
@@ -76,6 +76,16 @@ public class CircleShape
     public float[] getCircleArray()
     {
         return array;
+    }
+    
+    
+    public float[] TransformArrayX(float[] a, float x)
+    {
+        for(int k=0; k<a.length; ++k){
+            a[k] = a[k]+x;
+            k=k+2;
+        }
+        return a;
     }
 
 
