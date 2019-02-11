@@ -27,7 +27,7 @@ public class main
     private float PaddleOneHeight = 0f;
     private float PaddleTwoHeight = 0f;
     
-    private int a = 0;
+    private int a = 1;
     private int d1 = 0;
     private int d2 = 0;
     private int d3 = 0;
@@ -41,7 +41,7 @@ public class main
     private float[] v7={0.95f, -0.2f, 0};
     private float[] v8={0.95f, 0.2f, 0};
 
-    private float[] circle = addCirclePS(0.5f, 0.5f, 0.05f, 30, 0);
+    private float[] circle = addCirclePS(0.5f, 0.5f, 0.05f, 4, 0);
     private float[] circleC = addCirclePS(0.5f, 0.5f, 0.05f, 3, 0);
     private float[] circle1 = addCircleP(0.25f, 0.25f, 0.1f, 0);
     
@@ -115,119 +115,111 @@ public class main
             throw new RuntimeException("GLFW didn't make the window");
 
         
-        glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
+        glfwSetKeyCallback(window, (long window, int key, int scancode, int action, int mods) -> 
+        {
             
             if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
             {
                 glfwSetWindowShouldClose(window, true); 
             }
-               
             
-            if (key == GLFW_KEY_K)
-            {
-                if(d1==0)
-                {
-                    if(v6[1]+PaddleTwoHeight > -1)
-                    {
-                        PaddleTwoHeight=PaddleTwoHeight-0.1f; 
-                    }
-                    
-                    d1=1;
-                    
-                }else
-                {
-                    d1=0;
-                }
-             
-                System.out.println("EPIC!");
-                
-            }
-            
-            if (key == GLFW_KEY_I)
-            {
-                if(d2==0)
-                {
-                    if(v5[1]+PaddleTwoHeight < 1)
-                    {
-                        PaddleTwoHeight=PaddleTwoHeight+0.1f; 
-                    }
-                    
-                    d2=1;
-                    
-                }else                   
-                {
-                    d2=0;
-                }
-                
-                System.out.println("EPICER!");
-                
-            }
-            
-            if (key == GLFW_KEY_W)
-            {
-                if(d3==0)
-                {
-                    if(v1[1]+PaddleOneHeight < 1)
-                    {
-                        PaddleOneHeight=PaddleOneHeight+0.1f; 
-                    }
-                    
-                    d3=1;
-                    
-                }else
-                {
-                    d3=0;
-                }
-                
-                System.out.println("EPICERER!");
-                
-            }
-            
-            if (key == GLFW_KEY_S)
-            {
-                if(d4==0)
-                {
-                    if(v2[1]+PaddleOneHeight > -1)
-                    {
-                    PaddleOneHeight=PaddleOneHeight-0.1f; 
-                    }
-                    
-                    d4=1;
-                    
-                }else
-                    
-                {
-                    d4=0;
-                }
-                
-                System.out.println("EPICEREREST!");
-                
-            }
-            
-            if (key == GLFW_KEY_O && action == GLFW_RELEASE)
-            {
-     
-                if(a==0)
-                {
-                    a=1;
-                }else if(a==1)
-                {
-                    a=2;
-                    
-                }else if(a==2)
-                {
-                    a=3;
-                }else if(a==3)
-                {
-                    a=4;
-                }else
-                {
+            switch(key)
+            {               
+                case GLFW_KEY_0:
                     a=0;
-                }
-            }
-            
-    
-             
+                    break;
+                case GLFW_KEY_1:
+                    a=1;
+                    break;
+                case GLFW_KEY_2:
+                    a=2;
+                    break;
+                case GLFW_KEY_3:
+                    a=3;
+                    break;
+                case GLFW_KEY_4:
+                    a=4;
+                    break;
+                case GLFW_KEY_5:
+                    a=5;
+                    break;
+                case GLFW_KEY_6:
+                    a=6;
+                    break;
+                case GLFW_KEY_7:
+                    a=7;
+                    break;
+                case GLFW_KEY_8:
+                    a=8;
+                    break;
+                case GLFW_KEY_9:
+                    a=9;
+                    break;
+                case GLFW_KEY_S:
+                    if(d4==0)
+                    {
+                        if(v2[1]+PaddleOneHeight > -1)
+                        {
+                            PaddleOneHeight=PaddleOneHeight-0.1f; 
+                        }                   
+                        d4=1;                    
+                    }else                    
+                    {
+                        d4=0;
+                    }
+                    System.out.println("EPICEREREST!");
+                    break;
+                case GLFW_KEY_W:
+                    if(d3==0)
+                    {
+                        if(v1[1]+PaddleOneHeight < 1)
+                        {
+                            PaddleOneHeight=PaddleOneHeight+0.1f; 
+                        }
+                    d3=1;
+                    }else
+                    {
+                        d3=0;
+                    }               
+                    System.out.println("EPICERER!");               
+                    break;
+                case GLFW_KEY_I:
+                    if(d2==0)
+                    {
+                        if(v5[1]+PaddleTwoHeight < 1)
+                        {
+                            PaddleTwoHeight=PaddleTwoHeight+0.1f; 
+                        }   
+                    d2=1;                   
+                    }else                   
+                    {
+                        d2=0;
+                    }                
+                    System.out.println("EPICER!");               
+                    break;
+                case GLFW_KEY_K:
+                   if(d1==0)
+                    {
+                        if(v6[1]+PaddleTwoHeight > -1)
+                        {
+                            PaddleTwoHeight=PaddleTwoHeight-0.1f; 
+                        }                  
+                    d1=1;  
+                    }else
+                    {
+                        d1=0;
+                    }
+                    System.out.println("EPIC!");  
+                    break;  
+                case GLFW_KEY_ESCAPE:
+                    switch(action)
+                    {
+                        case GLFW_RELEASE:
+                            glfwSetWindowShouldClose(window, true); 
+                            break;
+                    }   
+                    break;
+            }      
         });
 
         
@@ -288,33 +280,52 @@ public class main
             };
 
 
-          if(a==0)
-          {
-            bufferHandleArray = GenericBuffer(c, verts, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
-            GenericBufferL(0, verts.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
-
-          }else if(a==1)
-          {
-            bufferHandleArray = GenericBuffer(c, verts2, "shader.frag", "shader.vert", vertexBuffer, progHandle, false); // Non DA Tris
-            GenericBufferL(0, verts2.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], false, 0); // Non DA Tris
-          }else if(a==2)
-          {
-
-            bufferHandleArray = GenericBuffer(c, circle, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
-            GenericBufferL(0, circle.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
-          }else if(a==3)
-          {
-               bufferHandleArray = GenericBuffer(c, circle1, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
-            GenericBufferL(0, circle1.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
-          }else if(a==4)
-          {
-            bufferHandleArray = GenericBuffer(c, circleC, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
-            GenericBufferL(0, circleC.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
-          }
-
-          glfwSwapBuffers(window);
-
-            
+            switch (a) 
+            {
+                case 1:
+                    bufferHandleArray = GenericBuffer(c, verts, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
+                    GenericBufferL(0, verts.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
+                    break;
+                case 2:
+                    bufferHandleArray = GenericBuffer(c, verts2, "shader.frag", "shader.vert", vertexBuffer, progHandle, false); // Non DA Tris
+                    GenericBufferL(0, verts2.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], false, 0); // Non DA Tris
+                    break;
+                case 3:
+                    bufferHandleArray = GenericBuffer(c, circle, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
+                    GenericBufferL(0, circle.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
+                    break;
+                case 4:
+                    bufferHandleArray = GenericBuffer(c, circle1, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
+                    GenericBufferL(0, circle1.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
+                    break;
+                case 5:
+                    bufferHandleArray = GenericBuffer(c, circleC, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
+                    GenericBufferL(0, circleC.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
+                    break;
+                    
+                //For when I need more frames
+                case 6:
+                    //bufferHandleArray = GenericBuffer(c, circleC, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
+                    //GenericBufferL(0, circleC.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
+                    break;
+                case 7:
+                    //bufferHandleArray = GenericBuffer(c, circleC, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
+                    //GenericBufferL(0, circleC.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
+                    break;
+                case 8:
+                    //bufferHandleArray = GenericBuffer(c, circleC, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
+                    //GenericBufferL(0, circleC.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
+                    break;
+                case 9:
+                    //bufferHandleArray = GenericBuffer(c, circleC, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
+                    //GenericBufferL(0, circleC.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
+                    break;
+                case 0:
+                    //bufferHandleArray = GenericBuffer(c, circleC, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
+                    //GenericBufferL(0, circleC.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
+                    break;
+            }
+          glfwSwapBuffers(window);          
         }
     }
 
