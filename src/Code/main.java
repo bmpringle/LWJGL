@@ -220,11 +220,23 @@ public class main
                             break;
                     }   
                     break;
-                case GLFW_KEY_G:
+                case GLFW_KEY_H:
                     circle = transformCircleX(circle, 0.2f);
                     break;
                 case GLFW_KEY_F:
                     circle = transformCircleX(circle, -0.2f);
+                    break;
+                case GLFW_KEY_T:
+                    circle = transformCircleY(circle, 0.2f);
+                    break;
+                case GLFW_KEY_G:
+                    circle = transformCircleY(circle, -0.2f);
+                    break;
+                case GLFW_KEY_O:
+                    circle = transformCircleZ(circle, -0.2f);
+                    break;
+                case GLFW_KEY_P:
+                    circle = transformCircleZ(circle, 0.2f);
                     break;
             }      
         });
@@ -456,6 +468,22 @@ public class main
         CircleShape c = new CircleShape();
         float[] Narray;
         Narray = c.TransformArrayX(array, x);
+        return Narray;
+    }
+    
+    public float[] transformCircleY(float[] array, float y)
+    {
+        CircleShape c = new CircleShape();
+        float[] Narray;
+        Narray = c.TransformArrayY(array, y);
+        return Narray;
+    }
+    
+    public float[] transformCircleZ(float[] array, float z)
+    {
+        CircleShape c = new CircleShape();
+        float[] Narray;
+        Narray = c.TransformArrayZ(array, z);
         return Narray;
     }
     

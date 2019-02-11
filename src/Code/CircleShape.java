@@ -87,10 +87,25 @@ public class CircleShape
         }
         return a;
     }
-
-
-
     
+    public float[] TransformArrayY(float[] a, float y)
+    {
+        for(int k=1; k<a.length; ++k){
+            a[k] = a[k]+y;
+            k=k+2;
+        }
+        return a;
+    }
+    
+    public float[] TransformArrayZ(float[] a, float z)
+    {
+        for(int k=2; k<a.length; ++k){
+            a[k] = a[k]+z;
+            k=k+2;
+        }
+        return a;
+    }
+   
     public void PrintFloatArray(float[] array)
     {
         for(rn=0; rn<6;++rn)
