@@ -19,6 +19,7 @@ public class main
 
 
     public static long window; //window handle
+    public static long windowPopup;
     private int progHandle; //the handle to the shader program
     private int vertexBuffer; // VBO
     private int[] bufferHandleArray; // BHA
@@ -44,7 +45,7 @@ public class main
     private float[] circleC = addCirclePS(0.5f, 0.5f, 0.05f, 3, 0);
     private float[] circle1 = addCircleP(0.25f, 0.25f, 0.1f, 0);
     
-
+   
 
     
     
@@ -65,25 +66,31 @@ public class main
     
 
 
-    private void teardown(){
-        // Free the window callbacks and destroy the window
-        glfwFreeCallbacks(window);
-        glfwDestroyWindow(window);
-
+    private void teardown(long[] windowArray){
+        for(int k = 0; k<windowArray.length; ++k){
+            // Free the window callbacks and destroy the window
+        glfwFreeCallbacks(windowArray[k]);
+        glfwDestroyWindow(windowArray[k]);
+        }
         // Terminate GLFW and free the error callback
         glfwTerminate();
         glfwSetErrorCallback(null).free();
+        
     }
 
     public void run() {
-        createWindow();
-        init();
+        createWindow(800, 800);
+        long[] windowArray = {
+            window
+        };
+        
+        init(windowArray);
         loop();
-        teardown();
+        teardown(windowArray);
 
     }
 
-    private void createWindow(){
+    private void createWindow(int x, int y){
         GLFWErrorCallback.createPrint(System.err).set();
 
        
@@ -101,7 +108,7 @@ public class main
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
       
-        window = glfwCreateWindow(800, 800, "LWJGL PONG", NULL, NULL);
+        window = glfwCreateWindow(x, y, "LWJGL PONG", NULL, NULL);
         
         
         if ( window == NULL )
@@ -224,7 +231,8 @@ public class main
         });
 
         
-        try ( MemoryStack stack = stackPush() ) {
+        try ( MemoryStack stack = stackPush() ) 
+        {
             IntBuffer pWidth = stack.mallocInt(1); // int*
             IntBuffer pHeight = stack.mallocInt(1); // int*
 
@@ -247,9 +255,12 @@ public class main
         glfwShowWindow(window);
     }
 
-    private void init() 
+    private void init(long[] windowC) 
     {         
-  
+        for(int k=0; k<windowC.length; ++k)
+        {
+            
+        }
     }
     
 
@@ -259,7 +270,7 @@ public class main
         {
             
             float[] c = {0, 0, 1, 0};
-     
+
             float verts[] = 
             {
                 v1[0], v1[1]+PaddleOneHeight, v1[2],
@@ -275,20 +286,20 @@ public class main
                 v7[0], v7[1]+PaddleTwoHeight, v7[2],
                 v8[0], v8[1]+PaddleTwoHeight, v8[2]
             };
-                   
-            
+
+
           if(a==0)
           {
             bufferHandleArray = GenericBuffer(c, verts, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
             GenericBufferL(0, verts.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
-           
+
           }else if(a==1)
           {
             bufferHandleArray = GenericBuffer(c, verts2, "shader.frag", "shader.vert", vertexBuffer, progHandle, false); // Non DA Tris
-            //GenericBufferL(0, verts2.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], false, indicesCount); // Non DA Tris
+            GenericBufferL(0, verts2.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], false, 0); // Non DA Tris
           }else if(a==2)
           {
-              
+
             bufferHandleArray = GenericBuffer(c, circle, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
             GenericBufferL(0, circle.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
           }else if(a==3)
@@ -300,9 +311,10 @@ public class main
             bufferHandleArray = GenericBuffer(c, circleC, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
             GenericBufferL(0, circleC.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
           }
-          
+
           glfwSwapBuffers(window);
 
+            
         }
     }
 
@@ -421,6 +433,6 @@ public class main
 
         return testCircle;
     }
+    
        
-
 }

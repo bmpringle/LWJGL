@@ -57,7 +57,7 @@ public class CircleShape
             array[18*y+14]= tarray[6*y+5];
             array[18*y+15]= tarray[6*y+6];
             array[18*y+16]= tarray[6*y+7];
-            array[18*y+17]= tarray[6*y+8];
+            array[18*y+17]= tarray[6*y+8];  
             
             PrintFloatArray(array);
             
@@ -104,8 +104,8 @@ public class CircleShape
                                         {
                                             if(array[3*rn+8]==0)
                                             {
-                                                System.out.println(3*rn + ", " + 3*rn+1  + ", " + 3*rn+2  + ", " + 3*rn+3  + ", " + 3*rn+4  + ", " + 3*rn+5  + ", " + 3*rn+6  + ", " + 3*rn+7  + ", " + 3*rn+8);
-                                               // glfwSetWindowShouldClose(main.window, true); // We will detect this in the rendering loop
+                                              //  System.out.println(3*rn + ", " + 3*rn+1  + ", " + 3*rn+2  + ", " + 3*rn+3  + ", " + 3*rn+4  + ", " + 3*rn+5  + ", " + 3*rn+6  + ", " + 3*rn+7  + ", " + 3*rn+8);
+                                              // glfwSetWindowShouldClose(main.window, true); // We will detect this in the rendering loop
                                             } 
                                         } 
                                     } 
