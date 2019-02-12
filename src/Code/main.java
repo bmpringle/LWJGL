@@ -40,9 +40,9 @@ public class main
     private float[] v7={0.95f, -0.2f, 0};
     private float[] v8={0.95f, 0.2f, 0};
 
-    private float[] circle = addCirclePS(0.5f, 0.5f, 0.05f, 4, 0);
-    private float[] circleC = addCirclePS(0.5f, 0.5f, 0.05f, 3, 0);
-    private float[] circle1 = addCircleP(0.25f, 0.25f, 0.1f, 0);
+    private float[] circle = addCirclePS(0.5f, 0.5f, 0.05f, 4, 0, true);
+    private float[] circleC = addCirclePS(0.5f, 0.5f, 0.05f, 3, 0, false);
+    private float[] circle1 = addCircleP(0.25f, 0.25f, 0.1f, 0, false);
 
     float verts2[] = 
     {
@@ -384,17 +384,17 @@ public class main
     {
     }
 
-    public float[] addCirclePS(float xCenter, float yCenter, float r, float percision, float zdepth)
+    public float[] addCirclePS(float xCenter, float yCenter, float r, float percision, float zdepth, boolean RPA)
     {
         CircleShape c = new CircleShape();
-        float[] testCircle = c.CreateCircleP(xCenter, yCenter, r, percision, zdepth);
+        float[] testCircle = c.CreateCircleP(xCenter, yCenter, r, percision, zdepth, RPA);
         return testCircle;
     }
 
-    public float[] addCircleP(float xCenter, float yCenter, float r, float zdepth)
+    public float[] addCircleP(float xCenter, float yCenter, float r, float zdepth, boolean RPA)
     {
         CircleShape c = new CircleShape();
-        float[] testCircle = c.CreateCircleNP(xCenter, yCenter, r, zdepth);
+        float[] testCircle = c.CreateCircleNP(xCenter, yCenter, r, zdepth, RPA);
         return testCircle;
     }
 

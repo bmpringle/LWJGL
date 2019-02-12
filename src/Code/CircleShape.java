@@ -12,7 +12,7 @@ public class CircleShape
     private float[] array;
     double ConversionFactor = Math.PI/180;
 
-    public float[] CreateCircleP(float xCenter, float yCenter, float r, float percision, float zdepth)
+    public float[] CreateCircleP(float xCenter, float yCenter, float r, float percision, float zdepth, boolean RPA)
     {
         double degreesChange = 360/percision;  
         double radiansChange = degreesChange*ConversionFactor;
@@ -52,16 +52,18 @@ public class CircleShape
             array[18*y+15]= tarray[6*y+6];
             array[18*y+16]= tarray[6*y+7];
             array[18*y+17]= tarray[6*y+8];  
-
-            PrintFloatArray(array);
+            if(RPA==true)
+            {
+                PrintFloatArray(array);
+            }
         }
         return array;
     }
 
-    public float[] CreateCircleNP(float xCenter, float yCenter, float r, float zdepth)
+    public float[] CreateCircleNP(float xCenter, float yCenter, float r, float zdepth, boolean RPA)
     {
         float percision = 500*r;
-        return CreateCircleP(xCenter, yCenter, r, percision, zdepth);
+        return CreateCircleP(xCenter, yCenter, r, percision, zdepth, RPA);
     }
 
     public float[] getCircleArray()
@@ -98,25 +100,19 @@ public class CircleShape
 
     public void PrintFloatArray(float[] array)
     {
-        for(rn=0; rn<6;++rn) {
-            System.out.println(array[3*rn] + ", " + array[3*rn+1] + ", " + array[3*rn+2]);
-            if(array[3*rn]==0) {
-                if(array[3*rn+1]==0) {
-                    if(array[3*rn+2]==0) {
-                        if(array[3*rn+3]==0) {
-                            if(array[3*rn+4]==0) {
-                                if(array[3*rn+5]==0) {
-                                    if(array[3*rn+6]==0) {
-                                        if(array[3*rn+7]==0) {
-                                            if(array[3*rn+8]==0) {
-                                              //  System.out.println(3*rn + ", " + 3*rn+1  + ", " + 3*rn+2  + ", " + 3*rn+3  + ", " + 3*rn+4  + ", " + 3*rn+5  + ", " + 3*rn+6  + ", " + 3*rn+7  + ", " + 3*rn+8);
-                                              // glfwSetWindowShouldClose(main.window, true); // We will detect this in the rendering loop
-                                            } 
-                                        }
-                                    }
-                                }
-                            }
-                       }
+        for(rn=0; rn<6;++rn) 
+        {
+            if(array[3*rn]==0) 
+            {
+                if(array[3*rn+1]==0) 
+                {
+                    if(array[3*rn+2]==0) 
+                    {                       
+                        int a=3*rn;
+                        int b=3*rn+1;
+                        int c=3*rn+2;
+                        System.out.println(a + ": " + array[3*rn] + ", " + b + ": " + array[3*rn+1] + ", " + c + ": " + array[3*rn+2]);
+                        
                     }
                 }
             }
