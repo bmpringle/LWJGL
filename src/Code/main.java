@@ -17,8 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 public class main 
 {
-
-
     public static long window; //window handle
     public static long windowPopup;
     private int progHandle; //the handle to the shader program
@@ -45,58 +43,46 @@ public class main
     private float[] circle = addCirclePS(0.5f, 0.5f, 0.05f, 4, 0);
     private float[] circleC = addCirclePS(0.5f, 0.5f, 0.05f, 3, 0);
     private float[] circle1 = addCircleP(0.25f, 0.25f, 0.1f, 0);
-    
-   
 
-    
-    
-    
-    
-  
-    
     float verts2[] = 
     {
         -0.5f, 0.5f, 0f,
         0.5f, 0.5f, 0f,
         0.5f, -0.5f, 0f,
     };
-    
 
-
-
-    
-
-
-    private void teardown(long[] windowArray){
-        for(int k = 0; k<windowArray.length; ++k){
+    private void teardown(long[] windowArray) 
+    {
+        for(int k = 0; k<windowArray.length; ++k) {
             // Free the window callbacks and destroy the window
-        glfwFreeCallbacks(windowArray[k]);
-        glfwDestroyWindow(windowArray[k]);
+            glfwFreeCallbacks(windowArray[k]);
+            glfwDestroyWindow(windowArray[k]);
         }
         // Terminate GLFW and free the error callback
         glfwTerminate();
         glfwSetErrorCallback(null).free();
-        
     }
 
-    public void run() {
+    public void run() 
+    {
         createWindow(800, 800);
         long[] windowArray = {
             window
         };
-        
+
         init(windowArray);
         loop();
         teardown(windowArray);
 
     }
 
-    private void createWindow(int x, int y){
+    private void createWindow(int x, int y)
+    {
         GLFWErrorCallback.createPrint(System.err).set();
 
-       
-        if ( !glfwInit() )
+        if ( !glfwInit() ) {
             throw new IllegalStateException("GLFW didn't init");
+        }
 
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_SAMPLES, 4);
@@ -108,24 +94,19 @@ public class main
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL11.GL_TRUE);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-      
         window = glfwCreateWindow(x, y, "LWJGL PONG", NULL, NULL);
-        
-        
-        if ( window == NULL )
-            throw new RuntimeException("GLFW didn't make the window");
 
-        
+        if ( window == NULL ) {
+            throw new RuntimeException("GLFW didn't make the window");
+        }
+
         glfwSetKeyCallback(window, (long window, int key, int scancode, int action, int mods) -> 
         {
-            
-            if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
-            {
+            if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE) {
                 glfwSetWindowShouldClose(window, true); 
             }
-            
-            switch(key)
-            {               
+
+            switch(key) {
                 case GLFW_KEY_0:
                     a=0;
                     break;
@@ -157,64 +138,51 @@ public class main
                     a=9;
                     break;
                 case GLFW_KEY_S:
-                    if(d4==0)
-                    {
-                        if(v2[1]+PaddleOneHeight > -1)
-                        {
+                    if(d4==0) {
+                        if(v2[1]+PaddleOneHeight > -1) {
                             PaddleOneHeight=PaddleOneHeight-0.1f; 
-                        }                   
-                        d4=1;                    
-                    }else                    
-                    {
+                        }
+                        d4=1;
+                    } else {
                         d4=0;
                     }
                     System.out.println("EPICEREREST!");
                     break;
                 case GLFW_KEY_W:
-                    if(d3==0)
-                    {
-                        if(v1[1]+PaddleOneHeight < 1)
-                        {
+                    if(d3==0) {
+                        if(v1[1]+PaddleOneHeight < 1) {
                             PaddleOneHeight=PaddleOneHeight+0.1f; 
                         }
-                    d3=1;
-                    }else
-                    {
+                        d3=1;
+                    } else {
                         d3=0;
                     }               
                     System.out.println("EPICERER!");               
                     break;
                 case GLFW_KEY_I:
-                    if(d2==0)
-                    {
-                        if(v5[1]+PaddleTwoHeight < 1)
-                        {
+                    if(d2==0) {
+                        if(v5[1]+PaddleTwoHeight < 1) {
                             PaddleTwoHeight=PaddleTwoHeight+0.1f; 
                         }   
-                    d2=1;                   
-                    }else                   
-                    {
+                        d2=1;
+                    } else {
                         d2=0;
-                    }                
+                    }
                     System.out.println("EPICER!");               
                     break;
                 case GLFW_KEY_K:
-                   if(d1==0)
-                    {
-                        if(v6[1]+PaddleTwoHeight > -1)
-                        {
+                   if(d1==0) {
+                        if(v6[1]+PaddleTwoHeight > -1) {
                             PaddleTwoHeight=PaddleTwoHeight-0.1f; 
-                        }                  
-                    d1=1;  
-                    }else
-                    {
+                        }
+                        d1=1;
+                    } else{
                         d1=0;
                     }
                     System.out.println("EPIC!");  
                     break;  
                 case GLFW_KEY_ESCAPE:
-                    switch(action)
-                    {
+                    switch(action) {
                         case GLFW_RELEASE:
                             glfwSetWindowShouldClose(window, true); 
                             break;
@@ -238,22 +206,18 @@ public class main
                 case GLFW_KEY_P:
                     circle = transformCircleZ(circle, 0.2f);
                     break;
-            }      
+            }
         });
 
-        
         try ( MemoryStack stack = stackPush() ) 
         {
             IntBuffer pWidth = stack.mallocInt(1); // int*
             IntBuffer pHeight = stack.mallocInt(1); // int*
 
-     
             glfwGetWindowSize(window, pWidth, pHeight);
 
-      
             GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
-     
             glfwSetWindowPos(
                     window,
                     (vidmode.width() - pWidth.get(0)) / 2,
@@ -268,18 +232,14 @@ public class main
 
     private void init(long[] windowC) 
     {         
-        for(int k=0; k<windowC.length; ++k)
-        {
-            
+        for(int k=0; k<windowC.length; ++k) {
         }
     }
-    
 
-    private void loop() {
-        
+    private void loop() 
+    {
         while ( !glfwWindowShouldClose(window) ) 
         {
-            
             float[] c = {0, 0, 1, 0};
 
             float verts[] = 
@@ -298,9 +258,7 @@ public class main
                 v8[0], v8[1]+PaddleTwoHeight, v8[2]
             };
 
-
-            switch (a) 
-            {
+            switch (a) {
                 case 1:
                     bufferHandleArray = GenericBuffer(c, verts, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
                     GenericBufferL(0, verts.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
@@ -321,7 +279,6 @@ public class main
                     bufferHandleArray = GenericBuffer(c, circleC, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
                     GenericBufferL(0, circleC.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
                     break;
-                    
                 //For when I need more frames
                 case 6:
                     //bufferHandleArray = GenericBuffer(c, circleC, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
@@ -344,7 +301,7 @@ public class main
                     //GenericBufferL(0, circleC.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
                     break;
             }
-          glfwSwapBuffers(window);          
+            glfwSwapBuffers(window);          
         }
     }
 
@@ -355,36 +312,26 @@ public class main
     
     public int[] GenericBuffer(float[] RGBNormalized, float[] verts, String frag, String vert, int buffer, int handle, boolean DA)
     {
-        
         //call first
         GL.createCapabilities();
-        
-       
-       
+
         GL11.glClearColor(RGBNormalized[0], RGBNormalized[1], RGBNormalized[2], RGBNormalized[3]);
        
         CheckCollisionPaddle1();
         CheckCollisionPaddle2();
-        
-       
+
         int vertextArrayID = GL30.glGenVertexArrays();
         GL30.glBindVertexArray(vertextArrayID);
 
-        if(DA==true)
-        {
-       
+        if(DA==true) {
             buffer = GL15.glGenBuffers();
             GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, buffer);
             GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verts, GL15.GL_STATIC_DRAW);
-        }else
-        {      
+        } else {
             buffer = GL15.glGenBuffers();
             GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, buffer);
             GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, verts, GL15.GL_STATIC_DRAW);
-
         }
-        
-
 
         //<<<<<<<<<<<<SHADERS>>>>>>>>>>>>>>
         String[] shaderBufferArr = GlUtil.readinShaders(frag, vert); //read shaders into string array
@@ -396,7 +343,6 @@ public class main
         GL20.glCompileShader(fragShaderID);
         GL20.glCompileShader(vertShaderID);
 
-
         handle = GL20.glCreateProgram();
         GL20.glAttachShader(handle, fragShaderID);
         GL20.glAttachShader(handle, vertShaderID);
@@ -405,14 +351,12 @@ public class main
         GL20.glDetachShader(handle, vertShaderID);
         GL20.glDetachShader(handle, fragShaderID);
 
-
         GL20.glDeleteShader(vertShaderID);
         GL20.glDeleteShader(fragShaderID);
         int[] a = {buffer, handle};
-        
-        return a;
-        
-}
+
+        return a;    
+    }
 
     public void GenericBufferL(int arrayStart, int arrayLength, int DrawSetting, int buffer, int handle, boolean DA, int indicesCount)
     {
@@ -421,48 +365,39 @@ public class main
         GL20.glUseProgram(handle);
         GL20.glEnableVertexAttribArray(0);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, buffer);
-        
-        if(DA==true)
-        {     
+
+        if(DA==true) {
             GL20.glVertexAttribPointer(0, 3, GL11.GL_FLOAT, false, 0, 0);
             GL11.glDrawArrays(DrawSetting, arrayStart, arrayLength); 
-            
-        }else
-        {
+        } else {
             GL20.glVertexAttribPointer(0, 3, GL11.GL_FLOAT, false, 0, 0);
             GL11.glDrawElements(GL11.GL_TRIANGLES, 6 , GL11.GL_UNSIGNED_BYTE , indicesCount);
         }
-        
         GL20.glDisableVertexAttribArray(0);
-         
     }
-    
+
     public void CheckCollisionPaddle1()
     {
-        
     }
-    
+
     public void CheckCollisionPaddle2()
     {
-        
     }
-    
-    
+
     public float[] addCirclePS(float xCenter, float yCenter, float r, float percision, float zdepth)
     {
         CircleShape c = new CircleShape();
         float[] testCircle = c.CreateCircleP(xCenter, yCenter, r, percision, zdepth);
         return testCircle;
     }
-    
+
     public float[] addCircleP(float xCenter, float yCenter, float r, float zdepth)
     {
-     CircleShape c = new CircleShape();
+        CircleShape c = new CircleShape();
         float[] testCircle = c.CreateCircleNP(xCenter, yCenter, r, zdepth);
-
         return testCircle;
     }
-    
+
     public float[] transformCircleX(float[] array, float x)
     {
         CircleShape c = new CircleShape();
@@ -470,7 +405,7 @@ public class main
         Narray = c.TransformArrayX(array, x);
         return Narray;
     }
-    
+
     public float[] transformCircleY(float[] array, float y)
     {
         CircleShape c = new CircleShape();
@@ -478,7 +413,7 @@ public class main
         Narray = c.TransformArrayY(array, y);
         return Narray;
     }
-    
+
     public float[] transformCircleZ(float[] array, float z)
     {
         CircleShape c = new CircleShape();
@@ -486,6 +421,4 @@ public class main
         Narray = c.TransformArrayZ(array, z);
         return Narray;
     }
-    
-       
 }
