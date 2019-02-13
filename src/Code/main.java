@@ -8,6 +8,7 @@ import org.lwjgl.opengl.*;
 
 import java.nio.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 import org.lwjgl.BufferUtils;
 
 import static org.lwjgl.glfw.Callbacks.*;
@@ -25,8 +26,7 @@ public class main
     
     private float PaddleOneHeight = 0f;
     private float PaddleTwoHeight = 0f;
-    
-    private int a = 1;
+    private int a = 3;
     private int d1 = 0;
     private int d2 = 0;
     private int d3 = 0;
@@ -40,7 +40,7 @@ public class main
     private float[] v7={0.95f, -0.2f, 0};
     private float[] v8={0.95f, 0.2f, 0};
 
-    private float[] circle = addCirclePS(0.5f, 0.5f, 0.05f, 4, 0, true);
+    private float[] circle = addCirclePS(0.5f, 0.5f, 0.4f, 6, 0, false);
     private float[] circleC = addCirclePS(0.5f, 0.5f, 0.05f, 3, 0, false);
     private float[] circle1 = addCircleP(0.25f, 0.25f, 0.1f, 0, false);
 
@@ -48,7 +48,7 @@ public class main
     {
         -0.5f, 0.5f, 0f,
         0.5f, 0.5f, 0f,
-        0.5f, -0.5f, 0f,
+        0.5f, -0.5f, 0f
     };
 
     private void teardown(long[] windowArray) 
@@ -239,7 +239,7 @@ public class main
     private void loop() 
     {
         while ( !glfwWindowShouldClose(window) ) 
-        {
+        { 
             float[] c = {0, 0, 1, 0};
 
             float verts[] = 
