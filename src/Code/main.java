@@ -39,10 +39,16 @@ public class main
     private float[] v6={1, -0.2f, 0};
     private float[] v7={0.95f, -0.2f, 0};
     private float[] v8={0.95f, 0.2f, 0};
-
-    private float[] circle = addCirclePS(0.5f, 0.5f, 0.4f, 6, 0, false);
-    private float[] circleC = addCirclePS(0.5f, 0.5f, 0.05f, 3, 0, false);
-    private float[] circle1 = addCircleP(0.25f, 0.25f, 0.1f, 0, false);
+      
+    RegularPolygon c = new RegularPolygon(0.5f, 0.5f, 6, 0.3f);
+    RegularPolygon c1 = new RegularPolygon(-0.5f, -0.5f, 3, 0.03f);
+    RegularPolygon c2 = new RegularPolygon(0.25f, 0.25f, 10, 0.1f);
+    private float[] circle = c.getArray();
+    private float[] circleC = c1.getArray();
+    private float[] circle1 = c2.getArray();
+    VertexCollection v = new VertexCollection();
+    
+    
 
     float verts2[] = 
     {
@@ -69,7 +75,10 @@ public class main
         long[] windowArray = {
             window
         };
-
+        v.addVertexArray(circle);
+        v.addVertexArray(circleC);
+        v.addVertexArray(circle1);
+  
         init(windowArray);
         loop();
         teardown(windowArray);
@@ -189,22 +198,22 @@ public class main
                     }   
                     break;
                 case GLFW_KEY_H:
-                    circle = transformCircleX(circle, 0.2f);
+                    c.TransformArrayX(0.2f);
                     break;
                 case GLFW_KEY_F:
-                    circle = transformCircleX(circle, -0.2f);
+                    c.TransformArrayX(-0.2f);
                     break;
                 case GLFW_KEY_T:
-                    circle = transformCircleY(circle, 0.2f);
+                    c.TransformArrayY(0.2f);
                     break;
                 case GLFW_KEY_G:
-                    circle = transformCircleY(circle, -0.2f);
+                    c.TransformArrayY(-0.2f);
                     break;
                 case GLFW_KEY_O:
-                    circle = transformCircleZ(circle, -0.2f);
+                    c.TransformArrayZ(-0.2f);
                     break;
                 case GLFW_KEY_P:
-                    circle = transformCircleZ(circle, 0.2f);
+                    c.TransformArrayZ(0.2f);
                     break;
             }
         });
@@ -281,8 +290,8 @@ public class main
                     break;
                 //For when I need more frames
                 case 6:
-                    //bufferHandleArray = GenericBuffer(c, circleC, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
-                    //GenericBufferL(0, circleC.length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
+                    bufferHandleArray = GenericBuffer(c, v.getVertexArray(), "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
+                    GenericBufferL(0, v.getVertexArray().length, GL11.GL_TRIANGLES, bufferHandleArray[0], bufferHandleArray[1], true, 0); // DA Tris
                     break;
                 case 7:
                     //bufferHandleArray = GenericBuffer(c, circleC, "shader.frag", "shader.vert", vertexBuffer, progHandle, true); // DA Tris
@@ -382,43 +391,5 @@ public class main
 
     public void CheckCollisionPaddle2()
     {
-    }
-
-    public float[] addCirclePS(float xCenter, float yCenter, float r, float percision, float zdepth, boolean RPA)
-    {
-        CircleShape c = new CircleShape();
-        float[] testCircle = c.CreateCircleP(xCenter, yCenter, r, percision, zdepth, RPA);
-        return testCircle;
-    }
-
-    public float[] addCircleP(float xCenter, float yCenter, float r, float zdepth, boolean RPA)
-    {
-        CircleShape c = new CircleShape();
-        float[] testCircle = c.CreateCircleNP(xCenter, yCenter, r, zdepth, RPA);
-        return testCircle;
-    }
-
-    public float[] transformCircleX(float[] array, float x)
-    {
-        CircleShape c = new CircleShape();
-        float[] Narray;
-        Narray = c.TransformArrayX(array, x);
-        return Narray;
-    }
-
-    public float[] transformCircleY(float[] array, float y)
-    {
-        CircleShape c = new CircleShape();
-        float[] Narray;
-        Narray = c.TransformArrayY(array, y);
-        return Narray;
-    }
-
-    public float[] transformCircleZ(float[] array, float z)
-    {
-        CircleShape c = new CircleShape();
-        float[] Narray;
-        Narray = c.TransformArrayZ(array, z);
-        return Narray;
     }
 }

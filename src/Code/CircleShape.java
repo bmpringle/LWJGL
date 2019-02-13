@@ -12,7 +12,7 @@ public class CircleShape
     private float[] array;
     double ConversionFactor = Math.PI/180;
 
-    public float[] CreateCircleP(float xCenter, float yCenter, float r, float percision, float zdepth, boolean RPA)
+    public CircleShape(float xCenter, float yCenter, float r, float percision, float zdepth, boolean RPA)
     {
         double degreesChange = 360/percision;  
         double radiansChange = degreesChange*ConversionFactor;
@@ -34,7 +34,7 @@ public class CircleShape
             tarray[3*(x+1)+2] = zdepth;
 
         }
-        
+      
         tarray[9+3*((int) percision-2)] = tarray[3];
         tarray[10+3*((int) percision-2)] = tarray[4];
         tarray[11+3*((int) percision-2)] = zdepth;       
@@ -95,51 +95,43 @@ public class CircleShape
             array[16]=array[31];
             array[22]=array[31];
         }
-        return array;
+        
     }
-
-    public float[] CreateCircleNP(float xCenter, float yCenter, float r, float zdepth, boolean RPA)
-    {
-        float percision = 500*r;
-        return CreateCircleP(xCenter, yCenter, r, percision, zdepth, RPA);
-    }
-
-    public float[] getCircleArray()
+    
+    public float[] getArray()
     {
         return array;
     }
 
-    public float[] TransformArrayX(float[] a, float x)
+    public void TransformArrayX(float x)
     {
-        for(int k=0; k<a.length; ++k) 
+        
+        for(int k=0; k<array.length; ++k) 
         {
-            a[k] = a[k]+x;
+            array[k] = array[k]+x;
             k=k+2;
         }
-        return a;
     }
 
-    public float[] TransformArrayY(float[] a, float y)
+    public void TransformArrayY(float y)
     {
-        for(int k=1; k<a.length; ++k) 
+        for(int k=1; k<array.length; ++k) 
         {
-            a[k] = a[k]+y;
+            array[k] = array[k]+y;
             k=k+2;
         }
-        return a;
     }
 
-    public float[] TransformArrayZ(float[] a, float z)
+    public void TransformArrayZ(float z)
     {
-        for(int k=2; k<a.length; ++k) 
+        for(int k=2; k<array.length; ++k) 
         {
-            a[k] = a[k]+z;
+            array[k] = array[k]+z;
             k=k+2;
         }
-        return a;
     }
 
-    public void PrintFloatArray(float[] array)
+    private void PrintFloatArray(float[] array)
     {
         for(rn=0; rn<6;++rn) 
         {
